@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@kobalte/core": "^0.13.4",
+    "@solid-primitives/upload": "^0.0.117",
+    "@solidjs/router": "^0.14.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "effector": "^23.2.2",

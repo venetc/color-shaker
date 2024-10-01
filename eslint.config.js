@@ -11,6 +11,16 @@ export default antfu({
     'no-console': 'off',
     'node/prefer-global/process': 'off',
     'ts/prefer-ts-expect-error': 'off',
+    'style/jsx-max-props-per-line': [
+      'warn',
+      {
+        maximum: {
+          single: 1,
+          multi: 1,
+        },
+      },
+    ],
+    'style/jsx-first-prop-new-line': ['warn', 'multiline-multiprop'],
     'import/order': [
       'warn',
       {
