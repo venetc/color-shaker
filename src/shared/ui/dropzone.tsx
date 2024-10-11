@@ -9,14 +9,14 @@ type DropzoneProps = Partial<Pick<HTMLInputElement, 'accept' | 'multiple'>> & Dr
 }
 
 interface DropzoneCallbacks {
-  onDrop?: DropzoneCallback
+  onFilesDrop?: DropzoneCallback
   onDragStart?: DropzoneCallback
   onDragEnter?: DropzoneCallback
   onDragEnd?: DropzoneCallback
   onDragLeave?: DropzoneCallback
   onDragOver?: DropzoneCallback
   onDrag?: DropzoneCallback
-  onChange?: DropzoneCallback
+  onChangeList?: DropzoneCallback
 }
 
 export function Dropzone(props: ComponentProps<'label'> & DropzoneProps) {
@@ -30,8 +30,8 @@ export function Dropzone(props: ComponentProps<'label'> & DropzoneProps) {
     'onDragEnd',
     'onDragEnter',
     'onDragStart',
-    'onDrop',
-    'onChange',
+    'onFilesDrop',
+    'onChangeList',
   ])
 
   const onDragStart: JSX.EventHandler<HTMLLabelElement, DragEvent> = (event) => {
@@ -59,17 +59,17 @@ export function Dropzone(props: ComponentProps<'label'> & DropzoneProps) {
     if (local.disabled) return
     handleEvents(local.onDrag, event);
   };
-  const onDrop: JSX.EventHandler<HTMLLabelElement, DragEvent> = (event) => {
+  const onFilesDrop: JSX.EventHandler<HTMLLabelElement, DragEvent> = (event) => {
     event.preventDefault();
     if (local.disabled) return
-    handleEvents(local.onDrop, event);
+    handleEvents(local.onFilesDrop, event);
   };
-  const onChange: JSX.EventHandler<HTMLInputElement, Event> = (event) => {
+  const onChangeList: JSX.EventHandler<HTMLInputElement, Event> = (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     if (local.disabled) return
-    handleEvents(local.onChange, event);
+    handleEvents(local.onChangeList, event);
   }
   return (
     <label
@@ -81,7 +81,7 @@ export function Dropzone(props: ComponentProps<'label'> & DropzoneProps) {
           ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
           `, `${local.disabled ? 'cursor-not-allowed opacity-40 grayscale' : 'cursor-pointer opacity-100 hover:bg-muted/25'}`)}
       onDragStart={onDragStart}
-      onDrop={onDrop}
+      onDrop={onFilesDrop}
       onDragEnd={onDragEnd}
       onDragEnter={onDragEnter}
       onDragLeave={onDragLeave}
@@ -95,7 +95,7 @@ export function Dropzone(props: ComponentProps<'label'> & DropzoneProps) {
         accept={local.accept}
         multiple={local.multiple}
         disabled={local.disabled}
-        onChange={onChange}
+        onChange={onChangeList}
       />
       <div>
         {rest.children}
@@ -104,18 +104,18 @@ export function Dropzone(props: ComponentProps<'label'> & DropzoneProps) {
   )
 }
 
-function handleEvents(cb: DropzoneCallback | undefined, event: DragEvent | Event) {
-  if (!cb) return;
+function handleEvents(callback: DropzoneCallback | undefined, event: DragEvent | Event) {
+  if (!callback) return;
 
   if (event instanceof DragEvent) {
     if (!event.dataTransfer || !event.dataTransfer.files) return
-    cb(event.dataTransfer.files);
+    callback(event.dataTransfer.files);
     return
   }
 
   if (event instanceof Event) {
     if (!event.currentTarget || !(event.currentTarget instanceof HTMLInputElement)) return
     if (!event.currentTarget.files) return
-    cb(event.currentTarget.files);
+    callback(event.currentTarget.files);
   }
 }

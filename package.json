@@ -18,6 +18,7 @@
     "effector-solid": "^0.23.0",
     "lucide-solid": "^0.428.0",
     "solid-js": "^1.8.21",
+    "solid-transition-group": "^0.2.3",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -92,3 +92,12 @@ html, body, #app {
 ::-webkit-scrollbar-track {
   background-color: hsl(var(--muted)) !important;
 }
+
+.fade-enter-active,
+.fade-exit-active {
+  transition: opacity 250ms, transform 250ms;
+}
+.fade-enter,
+.fade-exit-to {
+  opacity: 0;
+}
